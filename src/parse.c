@@ -92,7 +92,7 @@ int add_employee(struct dbheader_t *dbhdr, struct employee_t **employeesptr, cha
   struct employee_t *employees = NULL;
   if (*employeesptr == NULL)
   {
-    return STATUS_ERROR;
+    employees = malloc(dbhdr->count * sizeof(struct employee_t));
   }
   else
   {
