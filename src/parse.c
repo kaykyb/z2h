@@ -80,7 +80,16 @@ int add_employee(struct dbheader_t *dbhdr, struct employee_t **employeesptr, cha
 
   dbhdr->count++;
 
-  struct employee_t *employees = realloc(*employeesptr, dbhdr->count * sizeof(struct employee_t));
+  struct employee_t *employees = NULL;
+  if (*employeesptr == NULL)
+  {
+    employees = malloc(dbhdr->count * sizeof(struct employee_t));
+  }
+  else
+  {
+    employees = realloc(*employeesptr, dbhdr->count * sizeof(struct employee_t));
+  }
+
   *employeesptr = employees;
 
   char *name = strtok(addstring, ",");
