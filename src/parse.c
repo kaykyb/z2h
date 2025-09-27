@@ -71,12 +71,17 @@ void list_employees(struct dbheader_t *dbhdr, struct employee_t *employees)
   }
 }
 
-int add_employee(struct dbheader_t *dbhdr, struct employee_t *employees, char *addstring)
+int add_employee(struct dbheader_t *dbhdr, struct employee_t **employeesptr, char *addstring)
 {
-  if (dbhdr == NULL || employees == NULL || addstring == NULL)
+  if (dbhdr == NULL || employeesptr == NULL || *employeesptr == NULL || addstring == NULL)
   {
     return STATUS_ERROR;
   }
+
+  dbhdr->count++;
+
+  struct employee_t *employees = realloc(*employeesptr, dbhdr->count * sizeof(struct employee_t));
+  *employeesptr = employees;
 
   char *name = strtok(addstring, ",");
   char *addr = strtok(NULL, ",");
