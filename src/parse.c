@@ -78,6 +78,15 @@ int add_employee(struct dbheader_t *dbhdr, struct employee_t **employeesptr, cha
     return STATUS_ERROR;
   }
 
+  char *name = strtok(addstring, ",");
+  char *addr = strtok(NULL, ",");
+  char *hours = strtok(NULL, ",");
+
+  if (strlen(name) >= NAME_LEN || strlen(addr) >= ADDRESS_LEN)
+  {
+    return STATUS_ERROR;
+  }
+
   dbhdr->count++;
 
   struct employee_t *employees = NULL;
@@ -91,10 +100,6 @@ int add_employee(struct dbheader_t *dbhdr, struct employee_t **employeesptr, cha
   }
 
   *employeesptr = employees;
-
-  char *name = strtok(addstring, ",");
-  char *addr = strtok(NULL, ",");
-  char *hours = strtok(NULL, ",");
 
   strncpy(employees[dbhdr->count - 1].name, name, sizeof(employees[dbhdr->count - 1].name));
   strncpy(employees[dbhdr->count - 1].address, addr, sizeof(employees[dbhdr->count - 1].address));
