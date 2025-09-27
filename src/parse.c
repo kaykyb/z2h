@@ -82,7 +82,7 @@ int add_employee(struct dbheader_t *dbhdr, struct employee_t **employeesptr, cha
   char *addr = strtok(NULL, ",");
   char *hours = strtok(NULL, ",");
 
-  if (strlen(name) >= NAME_LEN || strlen(addr) >= ADDRESS_LEN)
+  if (strlen(name) >= NAME_LEN || strlen(addr) >= ADDRESS_LEN || name == NULL || addr == NULL || hours == NULL)
   {
     return STATUS_ERROR;
   }
